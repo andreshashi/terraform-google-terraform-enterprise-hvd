@@ -23,6 +23,7 @@ resource "google_service_networking_connection" "postgres_endpoint" {
   network                 = data.google_compute_network.vpc.self_link
   service                 = "servicenetworking.googleapis.com"
   reserved_peering_ranges = [google_compute_global_address.postgres_private_ip[0].name]
+  depends_on = [google_compute_global_address.postgres_private_ip]
 }
 
 resource "google_sql_database_instance" "tfe" {
